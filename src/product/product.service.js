@@ -16,11 +16,11 @@ const getProductById = async (id) => {
 };
 
 const createProduct = async (data) => {
-  const findProduct = await findProductByName(data.name);
+  // const findProduct = await findProductByName(data.name);
 
-  if (findProduct) {
-    throw new Error("Product already exists");
-  }
+  // if (findProduct) {
+  //   throw new Error("Product already exists");
+  // }
 
   return await prisma.product.create({
     data,

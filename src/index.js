@@ -1,12 +1,14 @@
 const express = require("express");
+const cors = require("cors");
 const dotenv = require("dotenv");
 
 const app = express();
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 2000;
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -14,8 +16,10 @@ app.get("/", (req, res) => {
 });
 
 const productController = require("./product/product.controller");
-
 app.use("/products", productController);
+
+const categoryController = require("./category/category.controller");
+app.use("/categories", categoryController);
 
 app.listen(PORT, () => {
   console.log("Server is running on port: " + PORT);

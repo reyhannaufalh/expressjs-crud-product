@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const prisma = require("../db");
+
 const {
   getAllProducts,
   getProductById,
@@ -30,15 +30,21 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { name, price, description, image } = req.body;
+    const { name, price, description, image, categoryId } = req.body;
 
-    if (!(name && price && description && image)) {
+    if (!(name && price && description && image && categoryId)) {
       return res.status(400).send({
         message: "Please provide all the fields",
       });
     }
 
-    const product = await createProduct({ name, price, description, image });
+    const product = await createProduct({
+      name,
+      price,
+      description,
+      image,
+      categoryId,
+    });
 
     res.status(201).send({
       message: "Product created successfully",
@@ -54,7 +60,7 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, price, description, image } = req.body;
+    const { name, price, description, image, categoryId } = req.body;
 
     if (!(name && price && description && image)) {
       return res.status(400).send({
@@ -67,6 +73,7 @@ router.put("/:id", async (req, res) => {
       price,
       description,
       image,
+      categoryId,
     });
 
     res.send({
@@ -83,13 +90,14 @@ router.put("/:id", async (req, res) => {
 router.patch("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, price, description, image } = req.body;
+    const { name, price, description, image, categoryId } = req.body;
 
     const product = await updateProduct(id, {
       name,
       price,
       description,
       image,
+      categoryId,
     });
 
     res.send({
