@@ -30,9 +30,9 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { name, price, description, image, categoryId } = req.body;
+    const { name, price, recipe, image, categoryId } = req.body;
 
-    if (!(name && price && description && image && categoryId)) {
+    if (!(name && price && recipe && image && categoryId)) {
       return res.status(400).send({
         message: "Please provide all the fields",
       });
@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
     const product = await createProduct({
       name,
       price,
-      description,
+      recipe,
       image,
       categoryId,
     });
@@ -60,9 +60,9 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, price, description, image, categoryId } = req.body;
+    const { name, price, recipe, image, categoryId } = req.body;
 
-    if (!(name && price && description && image)) {
+    if (!(name && price && recipe && image)) {
       return res.status(400).send({
         message: "Please provide all the fields",
       });
@@ -71,7 +71,7 @@ router.put("/:id", async (req, res) => {
     const product = await updateProduct(id, {
       name,
       price,
-      description,
+      recipe,
       image,
       categoryId,
     });
@@ -90,12 +90,12 @@ router.put("/:id", async (req, res) => {
 router.patch("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, price, description, image, categoryId } = req.body;
+    const { name, price, recipe, image, categoryId } = req.body;
 
     const product = await updateProduct(id, {
       name,
       price,
-      description,
+      recipe,
       image,
       categoryId,
     });
