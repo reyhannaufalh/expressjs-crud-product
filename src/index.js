@@ -21,6 +21,9 @@ app.use("/products", productController);
 const categoryController = require("./category/category.controller");
 app.use("/categories", categoryController);
 
+const authController = require("./auth/auth");
+app.use("/api/auth", authController.router);
+
 app.listen(PORT, () => {
   console.log("Server is running on port: " + PORT);
 });
